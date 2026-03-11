@@ -49,7 +49,6 @@ function AppRoutes() {
 }
 
 function AppContent() {
-  const { useStore } = require('@/lib/store');
   const { state } = useStore();
 
   if (!state.onboarded) {
