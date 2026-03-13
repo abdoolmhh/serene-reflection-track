@@ -115,12 +115,12 @@ export default function CommunityPage() {
       return;
     }
     const msg = ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)];
-    await supabase.from('community_messages').insert({
-      user_id: user.id,
-      display_name: state.userName || user.displayName || 'Anonymous',
+    await supabase.from('community_messages').insert([{
+      user_id: String(user.id),
+      display_name: state.userName || user.name || 'Anonymous',
       message: msg,
       message_type: 'encouragement',
-    });
+    }]);
   };
 
   const userRank = leaderboard.findIndex(e => e.user_id === user?.id) + 1;
