@@ -277,7 +277,7 @@ export default function CommunityPage() {
                 </div>
               ) : (
                 messages.map((msg, i) => {
-                  const isOwn = msg.user_id === user?.id;
+                  const isOwn = msg.user_id === String(user?.id);
                   return (
                     <motion.div
                       key={msg.id}
