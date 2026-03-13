@@ -123,7 +123,7 @@ export default function CommunityPage() {
     }]);
   };
 
-  const userRank = leaderboard.findIndex(e => e.user_id === user?.id) + 1;
+  const userRank = leaderboard.findIndex(e => e.user_id === String(user?.id)) + 1;
 
   const getInitials = (name: string) => {
     return name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
