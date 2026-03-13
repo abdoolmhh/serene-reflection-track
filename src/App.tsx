@@ -20,6 +20,7 @@ import PublicShareView from "@/pages/PublicShareView";
 import StreaksPage from "@/pages/StreaksPage";
 import GuidedAdhkarPage from "@/pages/GuidedAdhkarPage";
 import SalatulTasbeehPage from "@/pages/SalatulTasbeehPage";
+import CommunityPage from "@/pages/CommunityPage";
 import AdminPage from "@/pages/AdminPage";
 import NotFound from "./pages/NotFound";
 
