@@ -72,6 +72,7 @@ function AppContent() {
         <Route path="/quran/read" element={<QuranReaderPage />} />
         <Route path="/dhikr" element={<DhikrPage />} />
         <Route path="/streaks" element={<StreaksPage />} />
+        <Route path="/community" element={<CommunityPage />} />
         <Route path="/guided/:type" element={<GuidedAdhkarPage />} />
         <Route path="/salatul-tasbeeh" element={<SalatulTasbeehPage />} />
         <Route path="/share" element={<SharePage />} />
