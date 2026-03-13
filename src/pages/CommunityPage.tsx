@@ -95,12 +95,12 @@ export default function CommunityPage() {
       return;
     }
     setSending(true);
-    const { error } = await supabase.from('community_messages').insert({
-      user_id: user.id,
-      display_name: state.userName || user.displayName || 'Anonymous',
+    const { error } = await supabase.from('community_messages').insert([{
+      user_id: String(user.id),
+      display_name: state.userName || user.name || 'Anonymous',
       message: newMessage.trim(),
       message_type: 'chat',
-    });
+    }]);
     if (error) {
       toast.error('Failed to send message');
     } else {
