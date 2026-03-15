@@ -21,7 +21,17 @@ export default function Dashboard() {
   const { state, todayLog, todayKey, toggleTask, updateReflection, addCustomTask, removeTask, editTask } = useStore();
   const { user, profile } = useAuth();
   const [reflection, setReflection] = useState(todayLog.reflectionNote || '');
-  const [expandedBlocks, setExpandedBlocks] = useState<Record<string, boolean>>({ dawn: true, morning: true, afternoon: true, evening: true, night: true });
+  // Auto-expand only the current time block
+  const [expandedBlocks, setExpandedBlocks] = useState<Record<string, boolean>>(() => {
+    const hour = new Date().getHours();
+    let currentBlock = 'morning';
+    if (hour >= 3 && hour < 7) currentBlock = 'dawn';
+    else if (hour >= 7 && hour < 12) currentBlock = 'morning';
+    else if (hour >= 12 && hour < 16) currentBlock = 'afternoon';
+    else if (hour >= 16 && hour < 20) currentBlock = 'evening';
+    else currentBlock = 'night';
+    return { dawn: false, morning: false, afternoon: false, evening: false, night: false, [currentBlock]: true };
+  });
   const [showAddTask, setShowAddTask] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskCategory, setNewTaskCategory] = useState<'salah' | 'quran' | 'dhikr' | 'dua' | 'custom'>('custom');
