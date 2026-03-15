@@ -113,36 +113,35 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     }
   }, [todayKey]);
 
-  // Sync XP to cloud profile
+  // Track last synced values to avoid redundant writes
+  const lastSyncRef = React.useRef<string>('');
+
   const syncToCloud = useCallback(async () => {
     if (!user) return;
+    const payload = {
+      total_xp: state.totalXp,
+      display_name: state.userName,
+      current_ramadan_day: state.currentRamadanDay,
+      mode: state.mode.join(','),
+      quran_tracking_style: state.quranProgress.trackingStyle,
+      sharing_enabled: state.sharingEnabled,
+    };
+    const key = JSON.stringify(payload);
+    if (key === lastSyncRef.current) return; // No changes, skip sync
     try {
-      await supabase.from('profiles').update({
-        total_xp: state.totalXp,
-        display_name: state.userName,
-        current_ramadan_day: state.currentRamadanDay,
-        mode: state.mode.join(','),
-        quran_tracking_style: state.quranProgress.trackingStyle,
-        sharing_enabled: state.sharingEnabled,
-      }).eq('user_id', user.id);
+      await supabase.from('profiles').update(payload).eq('user_id', user.id);
+      lastSyncRef.current = key;
     } catch (e) {
       console.error('Sync failed:', e);
     }
   }, [user, state.totalXp, state.userName, state.currentRamadanDay, state.mode, state.quranProgress.trackingStyle, state.sharingEnabled]);
 
-  // Auto-sync every 30 seconds
-  useEffect(() => {
-    if (!user) return;
-    const interval = setInterval(syncToCloud, 30000);
-    return () => clearInterval(interval);
-  }, [user, syncToCloud]);
-
-  // Also sync on state changes (debounced)
+  // Sync on meaningful state changes only (debounced 5s)
   useEffect(() => {
     if (!user) return;
     const timeout = setTimeout(syncToCloud, 5000);
     return () => clearTimeout(timeout);
-  }, [state.totalXp, state.sharingEnabled, state.userName]);
+  }, [state.totalXp, state.sharingEnabled, state.userName, state.currentRamadanDay]);
 
   const toggleTask = useCallback((taskId: string) => {
     setState(prev => {
