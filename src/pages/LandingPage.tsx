@@ -456,6 +456,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ═══ Email Capture Section ═══ */}
+      <EmailCaptureSection />
+
       {/* ═══ CTA Section ═══ */}
       <section className="relative py-20 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
