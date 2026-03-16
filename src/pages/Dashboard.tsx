@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Moon, Flame, BookOpen, CheckCircle2, Circle, PenLine, ChevronDown, Trophy, Plus, X, Edit3, Save, Calendar } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import DailyMotivation from '@/components/DailyMotivation';
 
 const categoryColors: Record<string, string> = {
   salah: 'bg-primary/20 text-primary',
