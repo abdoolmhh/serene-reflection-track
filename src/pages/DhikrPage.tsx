@@ -114,9 +114,9 @@ export default function DhikrPage() {
 
       {/* Tabs */}
       <div className="flex gap-1 bg-secondary/50 rounded-xl p-1">
-        {(['adhkar', 'dhikr', 'dua'] as const).map(t => (
-          <button key={t} onClick={() => setTab(t)} className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${tab === t ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}>
-            {t === 'adhkar' ? '📿 Adhkar' : t === 'dhikr' ? '🔢 Counters' : '🤲 Du\'a'}
+        {(['adhkar', 'collection', 'dhikr', 'dua'] as const).map(t => (
+          <button key={t} onClick={() => setTab(t)} className={`flex-1 py-2 rounded-lg text-[10px] font-medium transition-all ${tab === t ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}>
+            {t === 'adhkar' ? '📿 Adhkar' : t === 'collection' ? '📖 Library' : t === 'dhikr' ? '🔢 Count' : '🤲 Du\'a'}
           </button>
         ))}
       </div>
